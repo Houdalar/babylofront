@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -27,6 +28,7 @@ class HeightActivity : AppCompatActivity() {
     lateinit var heightList: MutableList<Height>
     lateinit var mSharedPreferences: SharedPreferences
 
+
     lateinit var addBtn: FloatingActionButton
 
 
@@ -36,6 +38,9 @@ class HeightActivity : AppCompatActivity() {
         supportActionBar?.setTitle("Height")
         mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         addBtn=findViewById(R.id.floating_action_button_height)
+
+        addBtn.setColorFilter(R.color.gray)
+
         val bbName : String = intent.getStringExtra("BABYNAME").toString()
         addBtn.setOnClickListener{
             HeightDialog(
@@ -74,7 +79,7 @@ class HeightActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<MutableList<Height>>, t: Throwable)
             {
-                Toast.makeText(this@HeightActivity, "error while getting heights", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HeightActivity, "Failed to load", Toast.LENGTH_SHORT).show()
             }
         })
 

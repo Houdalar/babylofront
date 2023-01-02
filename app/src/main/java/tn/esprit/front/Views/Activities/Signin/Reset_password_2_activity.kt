@@ -74,7 +74,7 @@ class Reset_password_2_activity : AppCompatActivity()
         val code = code.text.toString()
         if (code.isEmpty())
         {
-            codeError.error = "Please the  code"
+            codeError.error = "Please the  enter code"
             valid = false
         }
         else

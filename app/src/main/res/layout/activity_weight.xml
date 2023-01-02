@@ -26,11 +26,16 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:src="@drawable/plus_icon"
-            app:fabCustomSize="80dp"
+            android:layout_marginBottom="8dp"
+            app:fabCustomSize="70dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.951"
             app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="@color/white"
+            android:elevation="100dp"
+            app:backgroundTint="@color/white"
             app:maxImageSize="40dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

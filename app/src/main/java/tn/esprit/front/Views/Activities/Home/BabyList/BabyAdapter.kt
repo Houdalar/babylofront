@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,7 +68,7 @@ class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyView
                 service.deleteBaby(map).enqueue(object : Callback<Baby> {
                     override fun onResponse(call: Call<Baby>, response: Response<Baby>) {
                         if(response.isSuccessful){
-                           Toast.makeText(holder.itemView.context,"Baby deleted successfully",Toast.LENGTH_LONG).show()
+                            Snackbar.make(holder.itemView,"Baby deleted successfully",Snackbar.LENGTH_LONG).show()
                             notifyDataSetChanged()
                             notifyItemRangeChanged(holder.adapterPosition, babyList.size)
                         }

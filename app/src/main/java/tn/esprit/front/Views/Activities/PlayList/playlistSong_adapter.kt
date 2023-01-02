@@ -1,6 +1,7 @@
 package tn.esprit.front.Views.Activities.PlayList
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
@@ -16,6 +17,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.PlayList
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
@@ -24,6 +27,7 @@ import tn.esprit.front.viewmodels.musicApi
 
 class playlistSong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<songviewHolder>()  {
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var preferences: SharedPreferences
     lateinit var mediaPlayer: MediaPlayer
     var isPlaying :  Boolean = false
     var isfavorite: Boolean = false
@@ -88,6 +92,9 @@ class playlistSong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adap
 
         // play the song
 
+        var preferences: SharedPreferences = holder.itemView.context.getSharedPreferences(
+            PREF_NAME, Context.MODE_PRIVATE)
+
         holder.itemView.setOnClickListener{
             // get the recyclerview tag
             val intent = Intent(holder.itemView.context, song_detail::class.java)
@@ -111,7 +118,7 @@ class playlistSong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adap
             val service = musicApi.create()
             val map = HashMap<String, String>()
             map["songname"] = name
-            map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDk2NjYwMX0.ZXBT5XlrgcSVdsvtW9Qte6BMsHhxTJ7SAOAhiFH2vdg"
+            map["token"]=preferences.getString(TOKEN,"").toString()
             // map["token"]= sharedPreferences.getString("token", "").toString()
             if(isfavorite)
             {
@@ -161,7 +168,7 @@ class playlistSong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adap
                 map["trackid"] =tracks[position]._id.toString()
                 val playlistName = sharedPreferences.getString("playlistname", "")
                 map["name"] = playlistName.toString()
-                map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
+                map["token"]=preferences.getString(TOKEN,"").toString()
                 services.deleteTrackfromPlaylist(map).enqueue(object : Callback<Tracks> {
                     override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
                         if (response.isSuccessful) {

@@ -21,7 +21,7 @@
             android:textSize="23sp"
             android:text="3"
             android:textStyle="bold"
-            android:textColor="@color/SecondaryColor"/>
+            android:textColor="@color/gray" />
 
         <TextView
             android:id="@+id/cm"
@@ -31,7 +31,7 @@
             android:layout_gravity="center"
             android:text=" kg"
             android:textStyle="bold"
-            android:textColor="@color/SecondaryColor"/>
+            android:textColor="@color/grayLight"/>
 
         <TextView
             android:id="@+id/dateWeight"
@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:gravity="end"
             android:text="26/11/2022"
-            android:textColor="@color/SecondaryColor"
+            android:textColor="@color/gray"
             android:textSize="19sp"
             android:layout_marginEnd="40dp"
             android:textStyle="bold" />

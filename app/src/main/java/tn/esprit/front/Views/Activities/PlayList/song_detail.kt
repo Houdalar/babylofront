@@ -16,6 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
 import kotlin.concurrent.thread
@@ -62,9 +63,9 @@ class song_detail : AppCompatActivity() {
         playPrevious = findViewById(R.id.imageView9)
 
         val map: HashMap<String, String> = HashMap()
-        val token : String ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
-        map["token"]=token
         sharedPreferences = this.getSharedPreferences("PREF_NAME", 0)
+        val token=sharedPreferences.getString(TOKEN,"").toString()
+        map["token"]=token
         var favorite: MutableList<String>?
         favorite = sharedPreferences.getStringSet("favoriteTracks", mutableSetOf())?.toMutableList()
         takeData()

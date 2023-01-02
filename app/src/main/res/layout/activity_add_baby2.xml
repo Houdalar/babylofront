@@ -4,11 +4,180 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_splash"
+    android:fillViewport="true"
     android:id="@+id/scrollViewAddBaby"
     tools:context=".Views.Activities.AddBabyActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <LinearLayout
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/logingradient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp" />
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/login_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:text="Let us know about your baby"
+                    android:textAlignment="center"
+                    android:textColor="@color/darkPink"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/AddBabyPic"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginVertical="20dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_add_photo_alternate_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/BabyNameLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/AddBabyPic">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/BabyName"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:background="@drawable/edittext"
+                        android:hint="   Baby name"
+                        android:inputType="text"
+                        android:padding="15dp"
+                        android:shadowColor="@color/shadowgray"
+                        android:textColorHint="@color/shadowgray"
+
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/BirthdayLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/BabyNameLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/BabyBirthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:background="@drawable/edittext"
+                        android:hint="   Baby birthday"
+                        android:inputType="text"
+                        android:padding="15dp"
+                        android:shadowColor="@color/shadowgray"
+                        android:textColorHint="@color/shadowgray"
+
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RadioGroup
+                    android:id="@+id/genre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/BirthdayLayout">
+
+                    <RadioButton
+                        android:id="@+id/rbGirl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:buttonTint="#656363"
+                        android:checked="true"
+                        android:text="Girl"
+                        android:textColor="#656363"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/rbBoy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:buttonTint="#656363"
+                        android:text="Boy"
+                        android:textColor="#656363"
+                        android:textSize="18sp" />
+
+                </RadioGroup>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/button"
+                    android:elevation="10dp"
+                    android:layout_marginStart="90dp"
+                    android:layout_marginEnd="90dp"
+                    android:shadowColor="@color/shadowgray"
+                    android:gravity="center"
+                    android:text="Add Baby"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/genre" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--<LinearLayout
         android:id="@+id/linearLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -106,7 +275,7 @@
             android:layout_marginStart="25dp"
             android:gravity="left" />
 
-        <!-- <LinearLayout
+        &lt;!&ndash; <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="horizontal"
@@ -129,7 +298,7 @@
                  android:layout_marginEnd="25dp"
                  android:layout_marginStart="10dp"
                  android:text="Boy" />
-         </LinearLayout>-->
+         </LinearLayout>&ndash;&gt;
 
 
         <RadioGroup
@@ -174,6 +343,6 @@
             android:layout_gravity="center"
             android:text="Add Baby"
             android:backgroundTint="@color/SecondaryColor"/>
-    </LinearLayout>
+    </LinearLayout>-->
 
 </ScrollView>

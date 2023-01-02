@@ -75,7 +75,7 @@ class Reset_password_1_Activity : AppCompatActivity()
 
                 override fun onFailure(call: Call<User>, t: Throwable)
                 {
-                    emailError.error = "something went wrong try again later"
+                    emailError.error = "something went wrong, please try again!"
                     valid = false
                 }
             })

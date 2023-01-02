@@ -1,11 +1,11 @@
 package tn.esprit.front.Views.Activities.PlayList
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
-import android.nfc.tech.NfcF.get
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,18 +13,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.gson.reflect.TypeToken.get
-import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.PlayList
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
-import java.lang.reflect.Array.get
 
 
 class songplaylistviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<songviewHolder>()  {
@@ -87,7 +84,8 @@ class songplaylistviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.A
         }
 
         // play the song
-
+        var preferences: SharedPreferences = holder.itemView.context.getSharedPreferences(
+            PREF_NAME, Context.MODE_PRIVATE)
         holder.itemView.setOnClickListener{
             // get the recyclerview tag
             val intent = Intent(holder.itemView.context, song_detail::class.java)
@@ -111,7 +109,7 @@ class songplaylistviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.A
             val service = musicApi.create()
             val map = HashMap<String, String>()
             map["songname"] = name
-            map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDk2NjYwMX0.ZXBT5XlrgcSVdsvtW9Qte6BMsHhxTJ7SAOAhiFH2vdg"
+            map["token"]=preferences.getString(TOKEN,"").toString()
             // map["token"]= sharedPreferences.getString("token", "").toString()
             if(isfavorite)
             {
@@ -153,7 +151,7 @@ class songplaylistviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.A
         holder.itemView.setOnLongClickListener(View.OnLongClickListener {
             val map : HashMap<String, String> = HashMap()
             //map.put("trackid", tracks[position]._id.toString())
-            map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
+            map["token"]=preferences.getString(TOKEN,"").toString()
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setTitle("Choose an option")
             val options = arrayOf("Add to playlist","Share","cancel")

@@ -68,20 +68,20 @@ class DrawerActivity : AppCompatActivity() {
                     Log.e("babies : ",babies.toString())
                     println(response.body())
                 } else {
-                    Toast.makeText(this@DrawerActivity, "Baby List can't be displayed", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@DrawerActivity, "Baby List can not be displayed", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
 
             override fun onFailure(call: Call<MutableList<Baby>>, t: Throwable) {
-                Toast.makeText(this@DrawerActivity, "Failed to load", Toast.LENGTH_SHORT)
+                Toast.makeText(this@DrawerActivity, "Check your internet connexion !", Toast.LENGTH_SHORT)
                     .show()
             }
         })
         recyclerBabyAdapter= BabyAdapter(babylist)
         recyclerBaby.adapter=recyclerBabyAdapter
 
-        recyclerBaby.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        recyclerBaby.layoutManager=LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
 
         nav_view.setNavigationItemSelectedListener {
             it.isChecked=true
@@ -99,16 +99,21 @@ class DrawerActivity : AppCompatActivity() {
                     val intent= Intent(this, book_home_page::class.java)
                     startActivity(intent)
                 }
-                R.id.nav_settings -> {
+                /*R.id.nav_settings -> {
                     val intent= Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
-                }
+                }*/
                 R.id.nav_logout -> {
                     val builder=AlertDialog.Builder(this)
                     builder.setTitle(getString(R.string.logoutTitle))
                     builder.setMessage(getString(R.string.logoutMessage))
                     builder.setPositiveButton("Yes"){ dialogInterface, which ->
                         getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit().clear().apply()
+
+                        val editor = mSharedPreferences.edit()
+                        editor.putString("IS_REMEMBRED","false")
+                        editor.apply()
+
                         finish()
                         val intent= Intent(this, Login_Activity::class.java)
                         startActivity(intent)
@@ -118,10 +123,10 @@ class DrawerActivity : AppCompatActivity() {
                     }
                     builder.create().show()
                 }
-                R.id.nav_help -> {
+                /*R.id.nav_help -> {
                     val intent= Intent(this, HelpActivity::class.java)
                     startActivity(intent)
-                }
+                }*/
             }
             true
         }

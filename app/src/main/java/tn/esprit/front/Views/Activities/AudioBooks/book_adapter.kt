@@ -1,5 +1,6 @@
 package tn.esprit.front.Views.Activities.AudioBooks
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.icu.number.NumberFormatter.with
@@ -20,6 +21,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.AudioBook
 import tn.esprit.front.viewmodels.AudioBookAPi
 import tn.esprit.front.viewmodels.musicApi
@@ -59,7 +62,8 @@ class book_adapter (val books: MutableList<AudioBook>) : RecyclerView.Adapter<bo
             holder.itemView.context.startActivity(intent)
 
         }
-
+        var mSharedPreferences: SharedPreferences = holder.itemView.context.getSharedPreferences(
+            PREF_NAME, Context.MODE_PRIVATE)
         holder.itemView.setOnLongClickListener(View.OnLongClickListener {
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setTitle("Add to bookshelf")
@@ -67,7 +71,7 @@ class book_adapter (val books: MutableList<AudioBook>) : RecyclerView.Adapter<bo
             builder.setPositiveButton("Yes") { dialog, which ->
                 val api = AudioBookAPi.create()
                 val map: HashMap<String, String> = HashMap()
-                val token : String ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
+                val token =mSharedPreferences.getString(TOKEN,"").toString()
                 map["token"]=token
                 map["title"]=books[position].bookTitle.toString()
                 val call = api.addFavoritesbooks(map)

@@ -23,10 +23,10 @@
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toEndOf="@+id/back"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/back"
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -37,7 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.019"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints" />-->
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/book_viewPager"

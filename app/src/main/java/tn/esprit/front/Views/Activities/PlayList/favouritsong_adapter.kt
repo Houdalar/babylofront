@@ -1,5 +1,6 @@
 package tn.esprit.front.Views.Activities.PlayList
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
@@ -13,17 +14,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Body
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
 
 class favouritsong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<favholder>()  {
-    lateinit var sharedPreferences: SharedPreferences
+
     lateinit var mediaPlayer: MediaPlayer
     var isPlaying :  Boolean = false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): favholder {
@@ -49,6 +50,8 @@ class favouritsong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adap
         mediaPlayer.setDataSource(tracks[position].url)
         mediaPlayer.prepare()
 
+        var mSharedPreferences: SharedPreferences = holder.itemView.context.getSharedPreferences(
+            PREF_NAME, Context.MODE_PRIVATE)
 
         holder.itemView.setOnClickListener {
 
@@ -93,7 +96,7 @@ class favouritsong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adap
                 val service = musicApi.create()
                 val map : HashMap<String, String> = HashMap()
                 map.put("songname", name)
-                map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
+                map["token"]=mSharedPreferences.getString(TOKEN,"").toString()
                 service.removeFavoritesTrack(map).enqueue(object : Callback<Tracks> {
                     override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
                         if (response.isSuccessful) {

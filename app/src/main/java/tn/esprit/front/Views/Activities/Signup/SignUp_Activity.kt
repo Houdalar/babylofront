@@ -124,13 +124,13 @@ class SignUp_Activity : AppCompatActivity() {
 
         if(name?.text!!.isEmpty())
         {
-            errorName?.error="Please enter your name!"
+            errorName?.error="Please enter your name !"
             Name=false
         }
 
         if(email?.text!!.isEmpty())
         {
-            errorEmail?.error="Please enter your e-mail!"
+            errorEmail?.error="Please enter your e-mail !"
             Email=false
         }
 

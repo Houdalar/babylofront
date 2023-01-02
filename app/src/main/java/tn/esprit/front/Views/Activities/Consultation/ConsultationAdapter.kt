@@ -44,7 +44,6 @@ class ConsultationAdapter(val consultationList: MutableList<Consultation>) : Rec
             builder.setPositiveButton("Yes"){dialog, which ->
                 val service= BabyViewModel.create()
                 val map:HashMap<String,String> = HashMap()
-                map.put("babyId", consultationList[position].babyId.toString())
                 map.put("date", consultationList[position].date.toString())
                 map.put("time", consultationList[position].time.toString())
                 map["token"]=mSharedPreferences.getString(TOKEN,"").toString()

@@ -5,7 +5,7 @@
     <color name="grad_end_color">#FFB8D0</color>
     <color name="grad_center_color">#FEE6EF</color>
     <color name="statusBar_color">#CB92C6</color>
-<!--    <color name="purple_200">#FFBB86FC</color>-->
+    <!--    <color name="purple_200">#FFBB86FC</color>-->
     <color name="black">#FF000000</color>
     <color name="SecondaryColor">#8D5185</color>
     <color name="SecondaryColorDark">#7C2F74</color>
@@ -13,10 +13,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00ffffff</color>
     <color name="purple_200">#a6d6f2</color>
+    <color name="purple_300">#7BC4EF</color>
     <color name="purple_500">#a6d6f2</color>
     <color name="purple_700">#a6d6f2</color>
     <color name="teal_200">#FFC3F9</color>
     <color name="teal_700">#FF018786</color>
     <color name="darkPink">#FF8DB4</color>
     <color name="shadowgray">#C7C9C9</color>
+    <color name="gray">#6C6D6D</color>
+    <color name="grayLight">#868787</color>
+    <color name="grayLighter">#A2A3A3</color>
 </resources>

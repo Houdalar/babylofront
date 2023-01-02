@@ -12,7 +12,6 @@ interface BabyViewModel {
     @Multipart
     @POST("/user/baby/addBaby")
     fun addBaby(
-        //@Body map : HashMap<String, String>
         @Part babyName: MultipartBody.Part,
         @Part birthday: MultipartBody.Part,
         @Part babyPic: MultipartBody.Part,
@@ -53,6 +52,15 @@ interface BabyViewModel {
 
     @PUT("/user/baby/deleteConsultation")
     fun deleteConsultation(@Body hashMap: HashMap<String, String>):Call<Consultation>
+
+    @PUT("/user/baby/deleteHeight")
+    fun deleteHeight(@Body hashMap: HashMap<String, String>):Call<Height>
+
+    @PUT("/user/baby/deleteWeight")
+    fun deleteWeight(@Body hashMap: HashMap<String, String>):Call<Weight>
+
+    @PUT("/user/baby/deleteVaccine")
+    fun deleteVaccine(@Body hashMap: HashMap<String, String>):Call<Vaccine>
 
     companion object {
 

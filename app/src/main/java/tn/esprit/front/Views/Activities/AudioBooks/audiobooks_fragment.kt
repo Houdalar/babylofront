@@ -1,10 +1,13 @@
 package tn.esprit.front.Views.Activities.AudioBooks
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +15,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.AudioBook
 import tn.esprit.front.viewmodels.AudioBookAPi
 
@@ -35,7 +40,7 @@ class AudioBook : Fragment() {
     lateinit var adventurebookview: RecyclerView
     lateinit var adventurebookviewAdapter: book_adapter
 
-
+    lateinit var mSharedPreferences: SharedPreferences
 
     var newbooks: ArrayList<AudioBook> = ArrayList()
     var fictionbooks: ArrayList<AudioBook> = ArrayList()
@@ -58,11 +63,14 @@ class AudioBook : Fragment() {
         newbooksview = view.findViewById(R.id.newbooks)
         fictionbooksview = view.findViewById(R.id.fictionbooks)
         adventurebookview = view.findViewById(R.id.adventurebooks)
-        recentbooklistview = view.findViewById(R.id.recent)
+
+        mSharedPreferences=requireActivity().getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+
 
        val map: HashMap<String, String> = HashMap()
-        val token : String ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDk2NjYwMX0.ZXBT5XlrgcSVdsvtW9Qte6BMsHhxTJ7SAOAhiFH2vdg"
+        val token =mSharedPreferences.getString(TOKEN,"").toString()
         map["token"]=token
+        println("token is $token")
         var services = AudioBookAPi.create()
         services.getTopAudioBook()!!.enqueue(object : Callback<MutableList<AudioBook>> {
             override fun onResponse(

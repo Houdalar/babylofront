@@ -1,5 +1,6 @@
 package tn.esprit.front.Views.Activities.AudioBooks
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.view.LayoutInflater
@@ -15,6 +16,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.AudioBook
 import tn.esprit.front.viewmodels.AudioBookAPi
 
@@ -58,6 +61,8 @@ class bookshelf_adapter (val books: MutableList<AudioBook>) : RecyclerView.Adapt
         }
 
 
+        var mSharedPreferences: SharedPreferences = holder.itemView.context.getSharedPreferences(
+            PREF_NAME, Context.MODE_PRIVATE)
 
        holder.itemView.setOnLongClickListener {
             val builder = AlertDialog.Builder(holder.itemView.context)
@@ -69,7 +74,7 @@ class bookshelf_adapter (val books: MutableList<AudioBook>) : RecyclerView.Adapt
                 if (title != null) {
                     map.put("title", title)
                 }
-                map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
+                map["token"]=mSharedPreferences.getString(TOKEN,"").toString()
                 service.removeFavoritesbooks(map).enqueue(object : Callback<AudioBook> {
                     override fun onResponse(call: Call<AudioBook>, response: Response<AudioBook>) {
                         if (response.isSuccessful) {

@@ -1,5 +1,6 @@
 package tn.esprit.front.Views.Activities.PlayList
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,12 +15,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
 
 class fav : Fragment() {
     lateinit var recylcersong: RecyclerView
     lateinit var recylcersongAdapter: favouritsong_adapter
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var preferences: SharedPreferences
     var tracks: ArrayList<Tracks> = ArrayList()
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
@@ -37,15 +42,17 @@ class fav : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        lateinit var sharedPreferences: SharedPreferences
+
         val view = inflater.inflate(R.layout.fragment_fav, container, false)
-        val token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
+        preferences=requireActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+
         recylcersong = view.findViewById(R.id.favorite_recycler)
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh)
         val map: HashMap<String, String> = HashMap()
         var services = musicApi.create()
 
-        map["token"] = token
+        val token =preferences.getString(TOKEN,"").toString()
+        map["token"]=token
 
         services.getFavoritesTracks(map)!!.enqueue(object : Callback<MutableList<Tracks>> {
             override fun onResponse(call: Call<MutableList<Tracks>>, response: Response<MutableList<Tracks>>) {
@@ -57,7 +64,7 @@ class fav : Fragment() {
                     tracks.clear()
                     tracks.addAll(tracksList)
                     // add the list to shared preferences
-                    sharedPreferences = requireActivity().getSharedPreferences("sharedPrefs", 0)
+                     sharedPreferences = requireActivity().getSharedPreferences("sharedPrefs", 0)
                     val editor = sharedPreferences.edit()
                     val set: MutableSet<String> = HashSet()
                     set.addAll(tracksList.map { it.name })

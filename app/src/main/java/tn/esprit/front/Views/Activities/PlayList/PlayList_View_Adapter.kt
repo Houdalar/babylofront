@@ -1,7 +1,9 @@
 package tn.esprit.front.Views.Activities.PlayList
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -12,6 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.PlayList
 import tn.esprit.front.viewmodels.musicApi
 
@@ -29,10 +33,13 @@ class PlayListViewAdapter (val PlayList: MutableList<PlayList>) : RecyclerView.A
         val cover = PlayList[position].cover
 
 
+
         Glide.with(holder.itemView.context).load(cover).into(holder.playlistCover)
         holder.playlistName.text = name
 
 
+        var mSharedPreferences: SharedPreferences = holder.itemView.context.getSharedPreferences(
+            PREF_NAME, Context.MODE_PRIVATE)
 
         holder.itemView.setOnClickListener{
             val intent = Intent(holder.itemView.context, Full_PlayList_Activity::class.java)
@@ -53,7 +60,7 @@ class PlayListViewAdapter (val PlayList: MutableList<PlayList>) : RecyclerView.A
                val services = musicApi.create()
                 val map : HashMap<String, String> = HashMap()
                 map["name"] = PlayList[position].name.toString()
-                map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
+                map["token"]=mSharedPreferences.getString(TOKEN,"").toString()
                 services.deletePlayList(map).enqueue(object : Callback<PlayList> {
                     override fun onResponse(call: Call<PlayList>, response: Response<PlayList>) {
                         if (response.isSuccessful) {

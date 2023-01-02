@@ -1,5 +1,6 @@
 package tn.esprit.front.Views.Activities.AudioBooks
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.AudioBook
 import tn.esprit.front.viewmodels.AudioBookAPi
 import tn.esprit.front.viewmodels.musicApi
@@ -23,7 +26,7 @@ class bookshelf : Fragment() {
     lateinit var booklistviewAdapter: bookshelf_adapter
     var booklist: ArrayList<AudioBook> = ArrayList()
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
+    lateinit var mSharedPreferences: SharedPreferences
 
 
 
@@ -38,9 +41,16 @@ class bookshelf : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        lateinit var sharedPreferences: SharedPreferences
+
         val view = inflater.inflate(R.layout.fragment_bookshelf, container, false)
-        val token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
+        mSharedPreferences=requireActivity().getSharedPreferences("sharedPrefs",
+            Context.MODE_PRIVATE
+        )
+        val preferences:SharedPreferences=requireActivity().getSharedPreferences(
+            PREF_NAME,
+            Context.MODE_PRIVATE
+        )
+        val token =preferences.getString(TOKEN,"").toString()
         booklistview = view.findViewById(R.id.bookshelf)
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh)
         val map: HashMap<String, String> = HashMap()
@@ -56,8 +66,7 @@ class bookshelf : Fragment() {
                     val List = response.body() as MutableList<AudioBook>
                     println(List)
                     // add the list to shared preferences
-                    sharedPreferences = requireActivity().getSharedPreferences("sharedPrefs", 0)
-                    val editor = sharedPreferences.edit()
+                    val editor = mSharedPreferences.edit()
                     val set: MutableSet<String> = HashSet()
                     set.addAll( List.map { it.bookTitle?: "" })
                     editor.putStringSet("bookshelf", set)

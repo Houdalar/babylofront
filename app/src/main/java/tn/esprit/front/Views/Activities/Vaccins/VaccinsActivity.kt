@@ -33,7 +33,11 @@ class VaccinsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_vaccins)
         supportActionBar?.title = "Vaccines"
         mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+
         addBtn=findViewById(R.id.floating_action_button_vaccins)
+
+        addBtn.setColorFilter(R.color.gray)
+
         val bbName : String = intent.getStringExtra("BABYNAME").toString()
         addBtn.setOnClickListener{
             VaccineDialog(

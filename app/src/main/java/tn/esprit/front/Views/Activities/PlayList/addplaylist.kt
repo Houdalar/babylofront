@@ -17,6 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.PlayList
 import tn.esprit.front.util.UploadRequestBody
 import tn.esprit.front.util.getFileName
@@ -35,7 +36,6 @@ class addplaylist : AppCompatActivity(),UploadRequestBody.UploadCallback {
     private  var selectedImageUri: Uri?=null
     lateinit var mSharedPreferences : SharedPreferences
     val services = musicApi.create()
-    val token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
     private val startForResultOpenGallery =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -102,8 +102,8 @@ class addplaylist : AppCompatActivity(),UploadRequestBody.UploadCallback {
             inputStream.copyTo(outputStream)
             val uploadRequestFile = UploadRequestBody(file,"image",this)
             mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
-            //val token=mSharedPreferences.getString("token","")
-            val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
+
+            val token =mSharedPreferences.getString(TOKEN,"").toString()
             val cover =MultipartBody.Part.createFormData("cover",file?.name,uploadRequestFile)
             val name = MultipartBody.Part.createFormData("name",playlistname.text.toString())
 

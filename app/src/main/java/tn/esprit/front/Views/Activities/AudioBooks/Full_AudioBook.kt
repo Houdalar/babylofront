@@ -1,24 +1,12 @@
 package tn.esprit.front.Views.Activities.AudioBooks
 
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.view.View
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.TextView.BufferType
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.createBitmap
-import androidx.core.graphics.drawable.*
-import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -26,6 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.PREF_NAME
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.AudioBook
 import tn.esprit.front.viewmodels.AudioBookAPi
 
@@ -48,6 +38,7 @@ class full_AudioBook : AppCompatActivity() {
     lateinit var barvector : ImageView
     var isfavorite = false
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var preferences: SharedPreferences
     lateinit var rate : ImageView
 
     
@@ -203,7 +194,8 @@ class full_AudioBook : AppCompatActivity() {
         save.setOnClickListener {
             val api = AudioBookAPi.create()
             val map: HashMap<String, String> = HashMap()
-            val token : String ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
+            preferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+            val token =preferences.getString(TOKEN,"").toString()
             map["token"]=token
             map["title"]=intent.getStringExtra("title").toString()
 

@@ -35,7 +35,12 @@ class ConsultationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_consultation)
         supportActionBar?.title = "Consultations"
         mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+
+
+
         addBtn=findViewById(R.id.floating_action_button_consultations)
+
+        addBtn.setColorFilter(R.color.gray)
         val bbName : String = intent.getStringExtra("BABYNAME").toString()
         addBtn.setOnClickListener{
             ConsultationDialog(
@@ -75,7 +80,7 @@ class ConsultationActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<MutableList<Consultation>>, t: Throwable)
             {
-                Toast.makeText(this@ConsultationActivity, "error while getting doctor consultations", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ConsultationActivity, "Failed to load", Toast.LENGTH_SHORT).show()
             }
         })
     }
