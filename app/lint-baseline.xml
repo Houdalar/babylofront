@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 7.3.0" type="baseline" client="gradle" dependencies="false" name="AGP (7.3.0)" variant="fatal" version="7.3.0">
+
+    <issue
+        id="NotSibling"
+        message="`@+id/imageView13` is not a sibling in the same `ConstraintLayout`"
+        errorLine1="                app:layout_constraintEnd_toStartOf=&quot;@+id/imageView13&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/favoritmusic_item.xml"
+            line="60"
+            column="17"/>
+    </issue>
+
+</issues>

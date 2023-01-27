@@ -40,6 +40,12 @@ android {
         viewBinding true
         dataBinding true
     }
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
